@@ -1,0 +1,8 @@
+Flask==2.1.1
+Flask_Mail==0.9.1
+Flask_MySQLdb==1.0.1
+Flask_Testing==0.8.1
+Flask_Uploads==0.2.1
+mysql_connector_repackaged==0.3.1
+passlib==1.7.4
+WTForms==3.0.1
