@@ -1,0 +1,222 @@
+{% extends 'pages/layout.html' %}
+{% block body %}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Product</h1>
+            {% include 'includes/_flashmsg.html' %}
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {% for product in product%}
+                            <form role="form" enctype=multipart/form-data class="" action="/edit_product?id={{product.id}}"
+                                  method="post">
+                                <div class="form-group">
+                                    <label>Product Name</label>
+                                    <input class="form-control" required="required" name="name" value="{{product.pName}}" placeholder="Enter name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input class="form-control" required="required" name="price" value="{{product.price}}" placeholder="Enter price">
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" required="required" name="description" rows="3"
+                                              placeholder="Write product description">{{product.description}}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Available</label>
+                                    <input class="form-control" required="required" value="{{product.available}}" name="available" placeholder="Available">
+                                </div>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="form-control" id="category_id" onchange="populateList();"
+                                            name="category">
+                                        {% if product.category == 'audi' %}
+                                        <option value="audi" selected>Audi</option>
+                                        {% else %}
+                                        <option value="audi">Audi</option>
+                                        {% endif %}
+                                        {% if product.category == 'bmw' %}
+                                        <option value="bmw" selected>BMW</option>
+                                        {% else %}
+                                        <option value="bmw">BMW</option>
+                                        {% endif %}
+                                        {% if product.category == 'mercedes' %}
+                                        <option value="mercedes" selected>Mercedes</option>
+                                        {% else %}
+                                        <option value="mercedes">Mercedes</option>
+                                        {% endif %}
+                                        {% if product.category == 'ferrari' %}
+                                        <option value="ferrari" selected>Ferrari</option>
+                                        {% else %}
+                                        <option value="ferrari">Ferrari</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                {% for product_level in product_level %}
+                                <div class="form-group level-container">
+                                    {% if product.category == 'Audi' %}
+                                    <label>Year for Audi</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline active">
+                                            {% if product_level.v_shape == 'yes' %}
+                                            <input type="checkbox" checked name="audi" value="v_shape">2023
+                                            {% else%}
+                                            <input type="checkbox" name="audi" value="v_shape">2023
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.polo == 'yes' %}
+                                            <input type="checkbox" checked name="audi" value="polo">2022
+                                            {% else%}
+                                            <input type="checkbox" name="audi" value="polo">2022
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.clean_text == 'yes' %}
+                                            <input type="checkbox" checked name="audi" value="clean_text">2021
+                                            {% else%}
+                                            <input type="checkbox" name="audi" value="clean_text">2021
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.design == 'yes' %}
+                                            <input type="checkbox" checked name="audi" value="design">2020
+                                            {% else%}
+                                            <input type="checkbox" name="audi" value="design">2020
+                                            {% endif %}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% if product.category == 'bmw' %}
+                                    <label>Year for BMW</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline">
+                                            {% if product_level.chain == 'yes' %}
+                                            <input type="checkbox" checked name="bmw" value="chain">2023
+                                            {% else%}
+                                            <input type="checkbox" name="bmw" value="chain">2023
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.leather == 'yes' %}
+                                            <input type="checkbox" checked name="bmw" value="leather">2022
+                                            {% else%}
+                                            <input type="checkbox" name="bmw" value="leather">2022
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.design == 'yes' %}
+                                            <input type="checkbox" checked name="bmw" value="design">2021
+                                            {% else%}
+                                            <input type="checkbox" name="bmw" value="design">2021
+                                            {% endif %}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% if product.category == 'mercedes' %}
+                                    <label>Year for Mercedes</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline">
+                                            {% if product_level.leather == 'yes' %}
+                                            <input type="checkbox" checked name="mercedes" value="leather">Leather
+                                            {% else%}
+                                            <input type="checkbox" name="mercedes" value="leather">Leather
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.hook == 'yes' %}
+                                            <input type="checkbox" checked name="mercedes" value="hook">Hook
+                                            {% else%}
+                                            <input type="checkbox" name="mercedes" value="hook">Hook
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.color == 'yes' %}
+                                            <input type="checkbox" checked name="mercedes" value="color">Color
+                                            {% else%}
+                                            <input type="checkbox" name="mercedes" value="color">Color
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.design == 'yes' %}
+                                            <input type="checkbox" checked name="mercedes" value="design">Design
+                                            {% else%}
+                                            <input type="checkbox" name="mercedes" value="design">Design
+                                            {% endif %}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% if product.category == 'ferrari' %}
+                                    <label>Level for ferrari</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline">
+                                            {% if product_level.formal == 'yes' %}
+                                            <input type="checkbox" checked name="ferrari" value="formal">Formal
+                                            {% else%}
+                                            <input type="checkbox" name="ferrari" value="formal">Formal
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.converse == 'yes' %}
+                                            <input type="checkbox" checked name="ferrari" value="converse">Converse
+                                            {% else%}
+                                            <input type="checkbox" name="ferrari" value="converse">Converse
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.loafer == 'yes' %}
+                                            <input type="checkbox" checked name="ferrari" value="loafer">Loafer
+                                            {% else%}
+                                            <input type="checkbox" name="ferrari" value="loafer">Loafer
+                                            {% endif %}
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            {% if product_level.leather == 'yes' %}
+                                            <input type="checkbox" name="ferrari" checked value="leather">Leather
+                                            {% else%}
+                                            <input type="checkbox" name="ferrari" value="leather">Leather
+                                            {% endif %}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                                <div class="form-group">
+                                    <label>Item</label>
+                                    <input class="form-control" required="required" name="item" value="{{product.item}}" placeholder="Ex: Type">
+                                </div>
+                                <div class="form-group">
+                                    <label>Product Code</label>
+                                    <input class="form-control" required="required" value="{{product.pCode}}" name="code" placeholder="Enter code">
+                                </div>
+                                <div class="form-group">
+                                    <label>Add Image</label>
+                                    <input type="file" name="picture">
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit Button</button>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
+{% endblock %}
